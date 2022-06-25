@@ -13,7 +13,6 @@ async function inserirComentario(idPost){
         mensagem:comentario 
     }
 
-    console.log(user);
     await fetch(API_URL + "/postagens/insereComentario", {
         method: 'POST',
         body: JSON.stringify(dados),
