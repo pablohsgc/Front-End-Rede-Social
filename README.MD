@@ -164,3 +164,6 @@ Um dado armazenado em localStorage pode ser removido usando a função removeIte
 ```js
     localStorage.removeItem("usuario-exdb");
 ```
+## Lugar dos arquivos no VSCode
+Deixe as pastas organizadas da seguinte forma!
+<img src="./tutorial2.PNG">

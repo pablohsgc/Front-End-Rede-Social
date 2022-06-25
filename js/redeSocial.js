@@ -88,4 +88,3 @@ async function carregaPostagens(){
 }
 
 carregaPostagens();
-
