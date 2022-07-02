@@ -104,6 +104,31 @@ Após receber o resultado da requisição, devemos verificar se possui erro na r
 
 Veja no final do arquivo [como salvar os dados em localStorage](#armazenando-dados-em-localstorage).
 
+### Requisitando cadastro de novo usuário
+O servidor possui oque uma rota que está em '/usuarios', vamos concatenar a API_URL armazenada com a rota que desejamos e fazer uma requisição do tipo POST para obtermos todas as postagens.
+
+Observação: um objeto dados deve conter as informações de name, username e password. Que será processado pelo servidor.
+
+```js
+let dados = {
+    name:name,
+    username:username,
+    password:password
+}
+```
+
+A requisição ficará da seguinte forma e retornará uma mensagem indicando se o usuário foi cadastrado ou se teve algum erro.
+
+```js
+await fetch(API_URL + "/usuarios", {
+    method: 'POST',
+    body: JSON.stringify(dados),
+    headers: { "Content-type": "application/json; charset=UTF-8" }
+})
+.then(response => response.json())
+.catch(erro => erro)
+```
+
 ### Requisitando a inserção de comentários
 O servidor possui oque uma rota que está em '/postagens/inserirComentario', vamos concatenar a API_URL armazenada com a rota que desejamos e fazer uma requisição do tipo POST para obtermos todas as postagens.
 
@@ -132,6 +157,32 @@ let dados = {
         alert("Não foi possivel cadastrar!");
     })
 ```
+
+### Requisitando a inserção de postagens
+O servidor possui oque uma rota que está em '/postagens', vamos concatenar a API_URL armazenada com a rota que desejamos e fazer uma requisição do tipo POST para que o servidor crie uma nova postagem.
+
+Como temos uma requisição do tipo post e queremos enviar dados, precisamos antes criar um objeto do tipo dados.
+
+Como a aplicação possui autenticação, vamos adicionar aos 'headers', das opções da requisição e o token que armazenamos na autênticação. 
+
+Dentro do then, do fetch, vamos chamar um método para chamar as todas as postagens novamente, assim o novo comentário será carregado na página.
+
+Observação: o token da requisição está armazenado em local storage, recupere o token para que possa usá-lo.
+
+```js
+    let dados = {
+        mensagem:mensagem
+    }
+
+    await fetch(API_URL + "/postagens", {
+        method: 'POST',
+        body: JSON.stringify(dados),
+        headers: { "Content-type": "application/json; charset=UTF-8", "bearer":token }
+    })
+    .then(response => response.json())
+    .catch(erro => erro)
+```
+
 
 ## Armazenando dados em localStorage
 As vezes precisamos armazenar alguns dados no navegador, para que possamos compartilhar, um mesmo valor entre várias páginas, ou armazená-lo para não perdermos um dado ao fechar o navegador.
@@ -166,4 +217,5 @@ Um dado armazenado em localStorage pode ser removido usando a função removeIte
 ```
 ## Lugar dos arquivos no VSCode
 Deixe as pastas organizadas da seguinte forma!
+
 <img src="./tutorial2.PNG">
